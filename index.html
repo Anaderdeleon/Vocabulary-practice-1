@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Practice Test #1 – Vocabulary Cloze Test</title>
+<style>
+:root{font-family:Arial,Helvetica,sans-serif;color:#202938;background:#f4f6fa}
+*{box-sizing:border-box}body{margin:0;padding:24px 14px 50px}
+.wrap{max-width:920px;margin:auto}.hero{background:#fff;border:1px solid #dce2eb;border-radius:16px;padding:24px;margin-bottom:18px}
+h1{font-size:clamp(1.45rem,4vw,2rem);margin:0 0 8px}.sub{color:#586579;line-height:1.5}
+.toolbar{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+button{border:0;border-radius:9px;padding:11px 16px;font-weight:700;cursor:pointer;background:#2459c5;color:#fff}
+button.secondary{background:#e8edf6;color:#23334d}button:focus,input:focus{outline:3px solid #a8c4ff;outline-offset:1px}
+.progress{height:9px;background:#e7ebf2;border-radius:99px;overflow:hidden;margin-top:16px}.bar{height:100%;width:0;background:#2459c5;transition:width .2s}
+.section{background:#fff;border:1px solid #dce2eb;border-radius:14px;padding:18px;margin:14px 0}
+.section h2{font-size:1.08rem;margin:0 0 14px;color:#233b66}
+.definitions{background:#f5f7fb;border:1px solid #e0e6f0;border-radius:10px;padding:12px 14px;margin:0 0 12px}
+.definitions-title{font-weight:700;font-size:.9rem;color:#314a72;margin-bottom:7px}
+.definition-row{font-size:.9rem;line-height:1.5;padding:3px 0}
+.definition-row strong{color:#243b61}
+.item{display:grid;grid-template-columns:30px minmax(0,1fr);gap:8px;padding:11px 0;border-top:1px solid #edf0f5;align-items:start}
+.num{font-weight:700;color:#68758a;padding-top:9px}.sentence{line-height:1.9}
+input.answer{width:min(230px,100%);border:1px solid #aeb9ca;border-radius:7px;padding:8px 9px;font-size:1rem;vertical-align:middle;background:#fff;color:#172033}
+.feedback{font-size:.88rem;margin-top:4px;min-height:18px}.correct{color:#14733e}.incorrect{color:#b42318}
+#results{display:none;background:#fff;border:1px solid #dce2eb;border-radius:14px;padding:20px;margin:18px 0}
+.score{font-size:2rem;font-weight:800;color:#2459c5}.small{font-size:.9rem;color:#5c687a}
+@media(max-width:560px){body{padding:12px 9px 35px}.hero,.section{padding:15px}.item{grid-template-columns:24px minmax(0,1fr)}input.answer{width:100%;max-width:210px}}
+@media print{body{background:white}.toolbar,#results .toolbar{display:none}.hero,.section{break-inside:avoid;box-shadow:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="hero">
+<h1>Practice Test #1 – Vocabulary</h1>
+<div class="sub">Cloze test · 136 questions · Read the four word definitions at the beginning of each section, then type the appropriate word or expression in each gap. <b>REMEMBER TO USE THE RIGHT FORM OF THE VERB BY USING A SUITABLE TENSE (PAST, PRESENT, FUTURE).</b> When you finish, select <b>Check answers</b> to see your score and feedback.</div>
+<div class="progress" aria-label="Completion progress"><div class="bar" id="bar"></div></div>
+<div class="small" id="progressText">0 of 136 answered</div>
+<div class="toolbar">
+<button id="checkTop" type="button">Check answers</button>
+<button class="secondary" id="resetTop" type="button">Clear all answers</button>
+</div>
+</header>
+<main id="exercise"></main>
+<section id="results" aria-live="polite">
+<h2>Your results</h2><div class="score" id="score"></div><p id="summary"></p>
+<div class="toolbar">
+<button id="retry" type="button">Try again</button>
+<button class="secondary" id="showAll" type="button">Show correct answers</button>
+</div>
+</section>
+<footer class="small">Practice material based on the supplied vocabulary test.</footer>
+</div>
+<script>
+const groups = [["Phrasal verbs", [["Come across", "To find something by chance."], ["Drop by", "To visit someone briefly, usually without a formal appointment or plan."], ["Go away", "To leave or depart from a place, or for something to disappear or stop happening."], ["Come about", "To happen or occur, typically referring to how something took place or was caused."]], [["She ___ my house to say hello.", "dropped by"], ["The idea for the project ___ during our meeting.", "came about"], ["He ___ on vacation last week.", "went away"], ["I ___ an interesting book at the library.", "came across"]]], ["Verbs", [["Promote", "To raise someone to a higher position or rank."], ["Represent", "To act or speak on behalf of someone or something, or to be a symbol or example of a group or idea."], ["Encourage", "To give support, confidence, or hope to someone."], ["Predict", "To say or estimate that something will happen in the future, based on knowledge or evidence."]], [["The lawyer will ___ the client in court.", "represent"], ["The weather forecast ___ rain tomorrow.", "predicts"], ["Her parents always ___ her to follow her dreams.", "encourage"], ["The company plans to ___ their new product with a major ad campaign.", "promote"]]], ["Verbs: delay, postpone, prevent, move", [["Delay", "Something that has been made later than expected, usually due to unexpected circumstances."], ["Postpone", "To arrange for something to happen at a later time or date than originally planned."], ["Prevent", "To stop something from happening."], ["Move", "To change the position or location of something or to shift plans or events to a different time or place."]], [["The flight was ___ because of bad weather.", "delayed"], ["The heavy rain ___ the event from taking place outside.", "prevented"], ["The meeting was ___ until next week.", "postponed"], ["The concert was ___ to an indoor venue due to the weather.", "moved"]]], ["Verbs: point, stress, advise, insist", [["Point", "To indicate or direct attention to something by using a finger or another object."], ["Stress", "To emphasize something strongly or to give special attention to it."], ["Advise", "To offer suggestions, recommendations, or guidance about what someone should do in a situation."], ["Insist", "To demand something firmly or repeatedly, often in a way that shows strong determination."]], [["The doctor ___ the need for regular exercise to stay healthy.", "stressed"], ["She ___ me to take a break and relax for a while.", "advised"], ["John ___ that we try the new restaurant even though we were tired.", "insisted"], ["He ___ out the mistakes in my report.", "pointed"]]], ["Verbs: miss, steal, rob, pick", [["Miss", "To fail to reach or catch something."], ["Steal", "To take away without permission or illegally."], ["Rob", "To take property from someone by force or threat, usually involving violence or intimidation."], ["Pick", "To select or choose something, or to take something."]], [["She ___ a beautiful bouquet of flowers from the garden.", "picked"], ["The store was ___ late last night, and the thieves took all the cash.", "robbed"], ["I ___ the bus because I woke up late this morning.", "missed"], ["A pickpocket ___ my wallet while I was shopping in the mall.", "stole"]]], ["Adverbs", [["Desperately", "In a way that shows extreme need, urgency, or a sense of hopelessness; often with great emotion or intensity."], ["Carelessly", "Without paying enough attention or being cautious; often leading to mistakes or accidents."], ["Hastily", "Done in a rushed or hurried manner, usually without consideration."], ["Certainly", "Without any doubt; in a way that is sure or confident."]], [["She ___ searched for her lost keys.", "desperately"], ["I will ___ attend the meeting tomorrow.", "certainly"], ["He ___ left his phone on the bus.", "carelessly"], ["She ___ wrote the report to meet the deadline.", "hastily"]]], ["Verbs: supply, borrow, provide, lend", [["Supply", "To make something available for use or consumption, often in large quantities."], ["Borrow", "To take something from someone with the intention of returning it after a certain period of time."], ["Provide", "To give something to someone."], ["Lend", "To give something temporarily to someone with the expectation that it will be returned."]], [["Can you ___ me your book for a week?", "lend"], ["The company will ___ the materials needed for the project.", "supply"], ["I need to ___ a pencil from you.", "borrow"], ["These charity organizations ___ food and shelter to those in need.", "provide"]]], ["Verbs: decline, decrease, drop, lower", [["Decline", "To reject or refuse something."], ["Decrease", "To become smaller or less in amount, size, or degree."], ["Drop", "To fall or reduce in amount, often suddenly."], ["Lower", "To reduce something to a lower level or position."]], [["He ___ the volume on the radio.", "lowered"], ["Sales have ___ over the past few months.", "decreased"], ["She ___ the invitation to the party.", "declined"], ["The temperature ___ significantly overnight.", "dropped"]]], ["Adverbs", [["Casually", "In a relaxed or informal manner, without serious thought or effort."], ["Unofficially", "Not formally approved or recognized, or done without an official process or declaration."], ["Naturally", "In a way that is in accordance with nature, or without any artificial influence; can also mean something happening without effort or planning."], ["Loosely", "In a relaxed, free, or not tightly controlled manner; not strict or rigid."]], [["He ___ excelled in sports due to his athletic abilities.", "naturally"], ["The rules were ___ applied during the event.", "loosely"], ["He wore a ___ styled shirt and jeans to the party.", "casually"], ["They ___ agreed to meet for lunch tomorrow.", "unofficially"]]], ["Nouns: proficiency, skill, worth, value", [["Proficiency", "A high level of competence or ability in a particular area or skill. It refers to being highly skilled or knowledgeable."], ["Skill", "The ability to perform a task or activity well."], ["Worth", "The value or importance of something, often in terms of money or personal significance."], ["Value", "The importance, usefulness, or worth of something, often related to its quality or benefit."]], [["He has great ___ in playing the guitar.", "skill"], ["Her ___ in languages made her an excellent translator.", "proficiency"], ["This service provides great ___ for the money.", "value"], ["The painting is ___ a lot of money.", "worth"]]], ["Nouns: territory, border, board, limit", [["Territory", "An area of land or space that is owned, controlled, or claimed by a person, group, country or animal."], ["Border", "The edge that separates two areas, such as countries or regions."], ["Board", "A group of people in an organization."], ["Limit", "A point beyond which something cannot go or exceed."]], [["The speed ___ on this road is 60 miles per hour.", "limit"], ["They crossed the ___ between two countries.", "border"], ["The lion defended its ___ from other animals.", "territory"], ["The ___ of directors will meet next Friday evening.", "board"]]], ["Nouns: receipt, rate, salary, wage", [["Receipt", "A document given after making a purchase or receiving payment."], ["Rate", "The price or cost of something."], ["Salary", "A fixed, regular payment, typically paid on a monthly or annual basis."], ["Wage", "A payment made to an employee, typically based on hours worked or the amount of work completed, often paid weekly or hourly."]], [["She receives a high ___ for her position.", "salary"], ["Make sure to keep the ___ for your return.", "receipt"], ["The hotel offers a special ___ for weekend stays.", "rate"], ["He earns a ___ of $15 per hour.", "wage"]]], ["Verbs: debate, claim, intend, propose", [["Debate", "To discuss a topic or issue in detail, often considering different viewpoints or arguments, typically in a formal setting."], ["Claim", "To state something as true, often without providing proof."], ["Intend", "To have a plan, purpose, or goal in mind; something that was meant or planned to happen."], ["Propose", "To suggest an idea, plan, or course of action for consideration or approval."]], [["The book was ___ to help students improve their writing skills.", "intended"], ["He ___ a new project to the team.", "proposed"], ["She ___ that she had seen the suspect at the scene.", "claimed"], ["The politicians ___ the new law for hours.", "debated"]]], ["Nouns: direction, distance, street, way", [["Direction", "A guidance showing where to go or how to proceed."], ["Distance", "The space between two points or places, or the extent of separation between them."], ["Street", "A public road in a city or town."], ["Way", "A path or route taken to reach a destination."]], [["Is this the ___ to the park?", "way"], ["The ___ from my house to the office is about 10 miles.", "distance"], ["The restaurant is on Main ___.", "Street"], ["He asked for ___ to the nearest gas station.", "directions"]]], ["Verbs: lose, miss, forget, mistake", [["Lose", "To be unable to find something."], ["Miss", "To fail to attend, experience, or reach something, or to feel the absence of something or someone."], ["Forget", "To fail to remember something or someone."], ["Mistake", "To understand or identify something or someone incorrectly."]], [["Paul ___ to bring his notebook to class.", "forgot"], ["I ___ my keys.", "lost"], ["You ___ her for her sister because they look so much alike.", "mistook"], ["Sandy ___ the bus this morning.", "missed"]]], ["Nouns: raising, earning, borrowing, gathering", [["Raising", "The act of collecting money for a specific purpose."], ["Earning", "The money received for work or services."], ["Borrowing", "The act of taking something temporarily with the intention of returning it."], ["Gathering", "An assembly of people."]], [["The ___ of the team was scheduled for 3:00 PM.", "gathering"], ["His ___ from the business are substantial.", "earnings"], ["The ___ of books from the library is free.", "borrowing"], ["The ___ of funds for the project took several months.", "raising"]]], ["Adjectives: removed, remote, redundant, restrained", [["Removed", "Something that is distant, either physically or emotionally."], ["Remote", "Something distant in space, time, or place."], ["Redundant", "Something that is unnecessary or superfluous, often because it repeats too much."], ["Restrained", "Something that is controlled, held back, or limited in expression or action."]], [["They live in a ___ village, far from the nearest city.", "remote"], ["His ___ behavior in the meeting showed his professionalism.", "restrained"], ["The report included ___ information that could have been left out.", "redundant"], ["She had a ___ attitude toward the situation, as if it didn't affect her.", "removed"]]], ["Nouns: ground, place, space, area", [["Ground", "The solid surface of the earth."], ["Place", "A specific location or area, or a particular position or space where something happens or exists."], ["Space", "An area or expanse that is empty or available."], ["Area", "A particular part or section of a larger space, often measured by size or purpose."]], [["This is a nice ___ to relax.", "place"], ["There isn't enough ___ in the room for all the furniture.", "space"], ["We couldn't work out the ___ of the room. We'll have to measure it again.", "area"], ["Susan fell to the ___ when she was trying to maneuver her bicycle.", "ground"]]], ["Nouns: traffic, driving, movement, transportation", [["Traffic", "The movement of vehicles along roads."], ["Driving", "The act of operating a vehicle, such as a car or truck."], ["Movement", "The act of moving or a group of people or things in motion."], ["Transportation", "The action or system of moving people or goods from one place to another."]], [["He enjoys the freedom that comes with ___.", "driving"], ["There was heavy ___ on the highway this morning.", "traffic"], ["Public ___ is essential in large cities.", "transportation"], ["The ___ of the car was slow due to the failing engine.", "movement"]]], ["Verbs: absorb, suck, nibble, sip", [["Absorb", "To take in or soak up a substance, such as a liquid."], ["Suck", "To draw something into the mouth using a vacuum created by the mouth."], ["Nibble", "To take small, gentle bites of something."], ["Sip", "To drink something in small amounts, often slowly or carefully."]], [["She ___ on a piece of cheese while waiting for dinner.", "nibbled"], ["The sponge ___ all the water from the spill.", "absorbed"], ["He ___ his coffee before continuing the conversation.", "sipped"], ["The baby ___ on the bottle.", "sucked"]]], ["Nouns: habit, routine, custom, manner", [["Habit", "A regular or repetitive behavior."], ["Routine", "A set of actions or activities that are done, often forming part of a daily schedule."], ["Custom", "A traditional practice or behavior that is accepted by a particular group of people or society."], ["Manner", "The way in which something is done, or a person’s behavior."]], [["It's a ___ in their culture to give gifts during the holiday season.", "custom"], ["His ___ of speaking was calm and respectful.", "manner"], ["Her morning ___ includes jogging and having breakfast.", "routine"], ["He has the ___ of checking his phone first thing in the morning.", "habit"]]], ["Verbs: stop, prevent, inhibit, ban", [["Stop", "To cease doing something."], ["Prevent", "To keep something from happening or to stop something before it occurs."], ["Inhibit", "To restrict the development or expression of something, often referring to emotions or actions."], ["Ban", "To officially or legally prohibit something, usually through rules or laws."]], [["The school ___ the use of cell phones during class.", "banned"], ["Her shyness ___ her from speaking in front of the group.", "inhibited"], ["The rainstorm ___ the outdoor event from taking place.", "prevented"], ["The teacher ___ the class when the fire alarm went off.", "stopped"]]], ["Verbs: reprimand, shout, scold, resign", [["Reprimand", "To express strong disapproval or criticism of someone."], ["Shout", "To speak or yell loudly."], ["Scold", "To angrily criticize someone, usually for bad behavior or mistakes."], ["Resign", "To voluntarily leave or quit a position or job."]], [["She ___ at her friend across the room to get their attention.", "shouted"], ["The mother ___ her child for not finishing their homework.", "scolded"], ["He ___ from his position as director after the company's financial issues.", "resigned"], ["The manager ___ the employee for being late to the meeting.", "reprimanded"]]], ["Verbs: achieve, complete, result, pass", [["Achieve", "To reach a goal or complete something successfully."], ["Complete", "To finish something."], ["Result", "To lead to a consequence or outcome."], ["Pass", "To succeed in a test or exam."]], [["She ___ the puzzle in record time.", "completed"], ["He ___ the driving test on the first try.", "passed"], ["His laziness ___ in failure.", "resulted"], ["He ___ great results after months of hard work.", "achieved"]]], ["Nouns: burdens, prospects, chores, works", [["Burdens", "Heavy responsibilities or problems."], ["Prospects", "Possibilities or chances for success."], ["Chores", "Routine tasks, especially around the house."], ["Works", "Pieces of effort or creations (like art or engineering)."]], [["The museum displayed several ___ by famous artists.", "works"], ["He does the dishes and other ___ every evening.", "chores"], ["She has good ___ for a career in law.", "prospects"], ["Caring for his sick parent is one of his main ___ in life.", "burdens"]]], ["Adjectives: invasive, offensive, defensive, inventive", [["Invasive", "Intruding on someone’s privacy or space."], ["Offensive", "Causing hurt or anger."], ["Defensive", "Protecting oneself, often with words or actions."], ["Inventive", "Creative, good at finding new ideas."]], [["His comment was ___ to many people.", "offensive"], ["She came up with an ___ solution to the problem.", "inventive"], ["The doctor explained that the procedure would be minimally ___, requiring only a small incision.", "invasive"], ["He became ___ when asked about what happened at the office.", "defensive"]]], ["Nouns: announcement, promotion, encouragement, improvement", [["Announcement", "A public statement about something."], ["Promotion", "An advancement in job position."], ["Encouragement", "Support to help someone feel more confident."], ["Improvement", "A positive change or upgrade."]], [["Her words of ___ lifted my spirits.", "encouragement"], ["He got a ___ after five years at the company.", "promotion"], ["There's been an ___ in her health.", "improvement"], ["The school made an ___ about the holiday.", "announcement"]]], ["Adverbs", [["Suspiciously", "In a way that shows distrust or doubt."], ["Remarkably", "In a surprising or impressive way."], ["Apparently", "As far as one knows or can tell."], ["Secretly", "In a hidden or private way."]], [["She ___ prepared a surprise party.", "secretly"], ["___, he already left the building.", "Apparently"], ["He looked at the stranger ___.", "suspiciously"], ["She recovered ___ fast.", "remarkably"]]], ["Nouns: recognition, identity, individuality, personality", [["Recognition", "The act of identifying something seen before."], ["Identity", "Who someone is."], ["Individuality", "The traits or characteristics that make someone unique."], ["Personality", "A person’s character or behavior."]], [["He has a cheerful ___.", "personality"], ["The customs officials checked his ___ with a passport.", "identity"], ["Sheila values Tom's sense of ___.", "individuality"], ["He had trouble with facial ___ after the accident.", "recognition"]]], ["Nouns: chances, opportunities, ideas, predictions", [["Chances", "Possibilities something will happen."], ["Opportunities", "Favorable situations to do something."], ["Ideas", "Thoughts or suggestions."], ["Predictions", "Statements about what will happen in the future."]], [["She took every ___ to practice speaking.", "opportunity"], ["The weather ___ were correct.", "predictions"], ["He shared his ___ for the project.", "ideas"], ["What are the ___ of rain today?", "chances"]]], ["Verbs: refine, correct, strengthen, improve", [["Refine", "To make something better or more sophisticated by removing flaws."], ["Correct", "To fix mistakes."], ["Strengthen", "To make stronger."], ["Improve", "To make better overall."]], [["He ___ his speech after practicing.", "refined"], ["Exercise ___ his muscles after attending workout sessions at the fitness club.", "strengthened"], ["She ___ the grammar in the essay.", "corrected"], ["Her English ___ after a year abroad.", "improved"]]], ["Adverbs", [["Definitely", "Without doubt."], ["Accurately", "In a correct and exact way."], ["Closely", "In a near or detailed manner."], ["Especially", "Particularly or more than others."]], [["She loves chocolate, ___ dark chocolate.", "especially"], ["Watch the experiment ___.", "closely"], ["I will ___ be there on time.", "definitely"], ["He described what happened in the accident ___.", "accurately"]]], ["Nouns: agony, sore, ache, injury", [["Agony", "Extreme pain."], ["Sore", "A painful or irritated area of the body."], ["Ache", "A continuous pain."], ["Injury", "Physical damage to the body."]], [["He suffered a serious knee ___.", "injury"], ["After the workout, I had a(n) ___ on my knee from the extra strain.", "sore"], ["She had a back ___ while she was working out at the gym.", "ache"], ["He was in ___ after breaking his leg.", "agony"]]], ["Adverbs", [["Permanently", "Lasting forever."], ["Steadily", "In a regular, consistent way."], ["Constantly", "All the time or very often."], ["Eagerly", "With excitement or enthusiasm."]], [["The kids ___ opened their presents.", "eagerly"], ["She ___ interrupts people.", "constantly"], ["He has been working ___ all year.", "steadily"], ["They moved to Spain ___.", "permanently"]]]];
+const exercise = document.getElementById('exercise');
+const answerInputs = [];
+let checked = false;
+let index = 0;
+groups.forEach((group, gi) => {
+  const section = document.createElement('section');
+  section.className = 'section';
+  const heading = document.createElement('h2');
+  heading.textContent = `${gi+1}. ${group[0]}`;
+  section.appendChild(heading);
+  const vocabBox = document.createElement('div');
+  vocabBox.className = 'definitions';
+  const vocabTitle = document.createElement('div');
+  vocabTitle.className = 'definitions-title';
+  vocabTitle.textContent = 'Word definitions';
+  vocabBox.appendChild(vocabTitle);
+  group[1].forEach(([word, definition]) => {
+    const defRow = document.createElement('div');
+    defRow.className = 'definition-row';
+    const term = document.createElement('strong');
+    term.textContent = word + ': ';
+    const meaning = document.createElement('span');
+    meaning.textContent = definition;
+    defRow.append(term, meaning);
+    vocabBox.appendChild(defRow);
+  });
+  section.appendChild(vocabBox);
+  group[2].forEach(([sentence, answer]) => {
+    index++;
+    const row = document.createElement('div');
+    row.className = 'item';
+    const num = document.createElement('div');
+    num.className = 'num';
+    num.textContent = index + '.';
+    const content = document.createElement('div');
+    const line = document.createElement('div');
+    line.className = 'sentence';
+    const parts = sentence.split('___');
+    line.append(document.createTextNode(parts[0]));
+    const input = document.createElement('input');
+    input.className = 'answer';
+    input.type = 'text';
+    input.autocomplete = 'off';
+    input.spellcheck = false;
+    input.setAttribute('aria-label', `Answer ${index}`);
+    input.dataset.answer = answer;
+    input.addEventListener('input', () => { checked = false; clearFeedback(); updateProgress(); });
+    line.append(input);
+    line.append(document.createTextNode(parts[1] || ''));
+    const feedback = document.createElement('div');
+    feedback.className = 'feedback';
+    content.append(line, feedback);
+    row.append(num, content);
+    section.appendChild(row);
+    answerInputs.push({input, feedback});
+  });
+  exercise.appendChild(section);
+});
+function normalize(s){return s.trim().toLocaleLowerCase().replace(/[’‘]/g,"'").replace(/\s+/g," ");}
+function updateProgress(){
+  const n = answerInputs.filter(x=>x.input.value.trim()).length;
+  document.getElementById('bar').style.width = (n/answerInputs.length*100)+'%';
+  document.getElementById('progressText').textContent = `${n} of ${answerInputs.length} answered`;
+}
+function clearFeedback(){
+  answerInputs.forEach(x=>{x.feedback.textContent='';x.feedback.className='feedback';x.input.style.borderColor='';});
+  document.getElementById('results').style.display='none';
+}
+function checkAnswers(){
+  let score=0;
+  answerInputs.forEach(({input,feedback})=>{
+    const ok=normalize(input.value)===normalize(input.dataset.answer);
+    if(ok) score++;
+    feedback.textContent=ok?'Correct':`Correct answer: ${input.dataset.answer}`;
+    feedback.className='feedback '+(ok?'correct':'incorrect');
+    input.style.borderColor=ok?'#16834a':'#c43b32';
+  });
+  checked=true;
+  document.getElementById('score').textContent=`${score} / ${answerInputs.length} (${Math.round(score/answerInputs.length*100)}%)`;
+  document.getElementById('summary').textContent=`You answered ${answerInputs.filter(x=>x.input.value.trim()).length} of ${answerInputs.length} questions. Review the feedback beside each answer.`;
+  document.getElementById('results').style.display='block';
+  document.getElementById('results').scrollIntoView({behavior:'smooth',block:'center'});
+}
+function resetAll(){
+  answerInputs.forEach(({input})=>{input.value='';});
+  checked=false;clearFeedback();updateProgress();window.scrollTo({top:0,behavior:'smooth'});
+}
+document.getElementById('checkTop').addEventListener('click',checkAnswers);
+document.getElementById('resetTop').addEventListener('click',resetAll);
+document.getElementById('retry').addEventListener('click',resetAll);
+document.getElementById('showAll').addEventListener('click',()=>{
+  answerInputs.forEach(({input})=>{input.value=input.dataset.answer;});
+  updateProgress();checkAnswers();
+});
+updateProgress();
+</script>
+</body></html>
